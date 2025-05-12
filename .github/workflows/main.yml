@@ -1,0 +1,31 @@
+name: Accessibility Check
+
+on:
+  push:
+    paths:
+      - 'nvda_log.txt'
+      - 'accessibility_checker.py'
+  pull_request:
+    paths:
+      - 'nvda_log.txt'
+      - 'accessibility_checker.py'
+
+jobs:
+  run-accessibility-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'  # or your preferred version
+
+      - name: Install dependencies (if any)
+        run: |
+          pip install -r requirements.txt || true  # optional, only if you have dependencies
+
+      - name: Run Accessibility Checker
+        run: python accessibility_checker.py
